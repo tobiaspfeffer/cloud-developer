@@ -7,6 +7,7 @@ The project is split into three parts:
 A basic Ionic client web application which consumes the RestAPI Backend. 
 2. [The RestAPI Feed Backend](/udacity-c3-restapi-feed), a Node-Express feed microservice.
 3. [The RestAPI User Backend](/udacity-c3-restapi-user), a Node-Express user microservice.
+3. [The Microservice Deployment](/udacity-c3-deployment), the containerized application is deployed on a kubernetes cluster.
 
 ## Getting Setup
 

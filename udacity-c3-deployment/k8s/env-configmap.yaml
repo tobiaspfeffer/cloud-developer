@@ -7,7 +7,7 @@ data:
   JWT_SECRET: "udagramtpf"
   POSTGRESS_DB: "udagramtpfdev"
   POSTGRESS_HOST: "udagramtpfdev.cdb8w2fdbsui.us-east-1.rds.amazonaws.com"
-  URL: http://localhost:8100  
+  URL: "*" 
 metadata:
   name: env-config
   

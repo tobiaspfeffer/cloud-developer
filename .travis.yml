@@ -5,7 +5,7 @@ services: docker
 env:
   - DOCKER_COMPOSE_VERSION=1.23.2
 
-before_install:
+install:
   - docker -v && docker-compose -v
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
@@ -14,11 +14,18 @@ before_install:
   - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
   - chmod +x ./kubectl
   - sudo mv ./kubectl /usr/local/bin/kubectl
+  - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
 
+script:
+  - docker-compose -f udacity-c3-deployment/docker/docker-compose-build.yaml build --parallel
+  - docker-compose -f udacity-c3-deployment/docker/docker-compose-build.yaml push
 
-
-install:
-  - docker-compose -f course-03/exercises/udacity-c3-deployment/docker/docker-compose-build.yaml build --parallel 
+deploy:
+  - sed -i -e 's|KUBE_CA_CERT|'"${KUBE_CA_CERT}"'|g' udacity-c3-deployment/k8s/kubeconfig
+  - sed -i -e 's|TPF_POSTGRESS_USERNAME|'"${TPF_POSTGRESS_USERNAME}"'|g' udacity-c3-deployment/k8s/kubeconfig
+  - sed -i -e 's|TPF_POSTGRESS_PASSWORD|'"${TPF_POSTGRESS_PASSWORD}"'|g' udacity-c3-deployment/k8s/kubeconfig
+  - sed -i -e 's|TPF_AWS_CREDENTIALS|'"${TPF_AWS_CREDENTIALS}"'|g' udacity-c3-deployment/k8s/kubeconfig
+  - kubectl --configfile udacity-c3-deployment/k8s/kubeconfig apply -f env-secret
 
 
 

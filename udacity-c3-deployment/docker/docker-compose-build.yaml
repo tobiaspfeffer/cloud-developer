@@ -3,16 +3,16 @@ services:
   reverseproxy:
     build:
       context: .
-    image: tobiaspfeffer/reverseproxy 
+    image: tobiaspfeffer/reverseproxy:${TRAVIS_BUILD_ID}
   backend_user:
     build:
       context: ../../udacity-c3-restapi-user
-    image: tobiaspfeffer/udacity-restapi-user
+    image: tobiaspfeffer/udacity-restapi-user:${TRAVIS_BUILD_ID}
   backend_feed:
     build:
       context: ../../udacity-c3-restapi-feed  
-    image: tobiaspfeffer/udacity-restapi-feed
+    image: tobiaspfeffer/udacity-restapi-feed:${TRAVIS_BUILD_ID}
   frontend:
     build:
       context: ../../udacity-c3-frontend  
-    image: tobiaspfeffer/udacity-frontend:local
+    image: tobiaspfeffer/udacity-frontend:${TRAVIS_BUILD_ID}

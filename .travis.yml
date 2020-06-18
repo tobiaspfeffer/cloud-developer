@@ -17,15 +17,16 @@ install:
   - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
 
 script:
+  - export TAG=$(cat version)
   - docker-compose -f udacity-c3-deployment/docker/docker-compose-build.yaml build --parallel
   - docker-compose -f udacity-c3-deployment/docker/docker-compose-build.yaml push
-  - docker tag tobiaspfeffer/reverseproxy:${TRAVIS_BUILD_ID} tobiaspfeffer/reverseproxy:latest
+  - docker tag tobiaspfeffer/reverseproxy:${TAG} tobiaspfeffer/reverseproxy:latest
   - docker push tobiaspfeffer/reverseproxy:latest
-  - docker tag tobiaspfeffer/udacity-restapi-user:${TRAVIS_BUILD_ID} tobiaspfeffer/udacity-restapi-user:latest
+  - docker tag tobiaspfeffer/udacity-restapi-user:${TAG} tobiaspfeffer/udacity-restapi-user:latest
   - docker push tobiaspfeffer/udacity-restapi-user:latest
-  - docker tag tobiaspfeffer/udacity-restapi-feed:${TRAVIS_BUILD_ID} tobiaspfeffer/udacity-restapi-feed:latest
+  - docker tag tobiaspfeffer/udacity-restapi-feed:${TAG} tobiaspfeffer/udacity-restapi-feed:latest
   - docker push tobiaspfeffer/udacity-restapi-feed:latest
-  - docker tag tobiaspfeffer/udacity-frontend:${TRAVIS_BUILD_ID} tobiaspfeffer/udacity-frontend:latest
+  - docker tag tobiaspfeffer/udacity-frontend:${TAG} tobiaspfeffer/udacity-frontend:latest
   - docker push tobiaspfeffer/udacity-frontend:latest
 
 after_script:
@@ -33,13 +34,13 @@ after_script:
   - sed -i -e 's|TPF_POSTGRESS_USERNAME|'"${TPF_POSTGRESS_USERNAME}"'|g' udacity-c3-deployment/k8s/kubeconfig
   - sed -i -e 's|TPF_POSTGRESS_PASSWORD|'"${TPF_POSTGRESS_PASSWORD}"'|g' udacity-c3-deployment/k8s/kubeconfig
   - sed -i -e 's|TPF_AWS_CREDENTIALS|'"${TPF_AWS_CREDENTIALS}"'|g' udacity-c3-deployment/k8s/kubeconfig
-  - kubectl --configfile udacity-c3-deployment/k8s/kubeconfig apply -f env-secret
-  - kubectl --configfile udacity-c3-deployment/k8s/kubeconfig apply -f aws-secret
-  - kubectl --configfile udacity-c3-deployment/k8s/kubeconfig apply -f env-configmap
-  - kubectl --configfile udacity-c3-deployment/k8s/kubeconfig apply -f backend-feed-deployment.yaml
-  - kubectl --configfile udacity-c3-deployment/k8s/kubeconfig apply -f backend-feed-service.yaml
-  - kubectl --configfile udacity-c3-deployment/k8s/kubeconfig apply -f backend-user-deployment.yaml
-  - kubectl --configfile udacity-c3-deployment/k8s/kubeconfig apply -f backend-user-service.yaml
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f env-secret
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f aws-secret
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f env-configmap
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f backend-feed-deployment.yaml
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f backend-feed-service.yaml
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f backend-user-deployment.yaml
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f backend-user-service.yaml
   - kubectl --configfile udacity-c3-deployment/k8s/kubeconfig apply -f frontend-deployment.yaml
   - kubectl --configfile udacity-c3-deployment/k8s/kubeconfig apply -f frontend-service.yaml
   - kubectl --configfile udacity-c3-deployment/k8s/kubeconfig apply -f reverseproxy-deployment.yaml

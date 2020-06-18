@@ -16,7 +16,15 @@ install:
   - sudo mv ./kubectl /usr/local/bin/kubectl
 
 script:
-  - docker-compose -f udacity-c3-deployment/docker/docker-compose-build.yaml build --parallels
+  - docker-compose -f udacity-c3-deployment/docker/docker-compose-build.yaml build --parallel
+  - docker-compose -f docker-compose-build.yaml push
+
+deploy:
+  - sed -i -e 's|KUBE_CA_CERT|'"${KUBE_CA_CERT}"'|g' udacity-c3-deployment/k8s/kubeconfig
+  - sed -i -e 's|TPF_POSTGRESS_USERNAME|'"${TPF_POSTGRESS_USERNAME}"'|g' udacity-c3-deployment/k8s/kubeconfig
+  - sed -i -e 's|TPF_POSTGRESS_PASSWORD|'"${TPF_POSTGRESS_PASSWORD}"'|g' udacity-c3-deployment/k8s/kubeconfig
+  - sed -i -e 's|TPF_AWS_CREDENTIALS|'"${TPF_AWS_CREDENTIALS}"'|g' udacity-c3-deployment/k8s/kubeconfig
+  - kubectl --configfile udacity-c3-deployment/k8s/kubeconfig apply -f env-secret
 
 
 

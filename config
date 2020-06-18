@@ -1,0 +1,30 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: KUBE_CA_CERT
+    server: https://3B49B2CE165DB2D2C61471FF301012DD.gr7.eu-central-1.eks.amazonaws.com
+  name: arn:aws:eks:eu-central-1:675076007302:cluster/tpfeks
+contexts:
+- context:
+    cluster: arn:aws:eks:eu-central-1:675076007302:cluster/tpfeks
+    user: arn:aws:eks:eu-central-1:675076007302:cluster/tpfeks
+  name: arn:aws:eks:eu-central-1:675076007302:cluster/tpfeks
+current-context: arn:aws:eks:eu-central-1:675076007302:cluster/tpfeks
+kind: Config
+preferences: {}
+users:
+- name: arn:aws:eks:eu-central-1:675076007302:cluster/tpfeks
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1alpha1
+      args:
+      - --region
+      - eu-central-1
+      - eks
+      - get-token
+      - --cluster-name
+      - tpfeks
+      command: aws
+      env:
+      - name: AWS_PROFILE
+        value: default

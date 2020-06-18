@@ -40,17 +40,17 @@ after_script:
   - sed -i -e 's|TPF_AWS_CREDENTIALS|'"${TPF_AWS_CREDENTIALS}"'|g' udacity-c3-deployment/k8s/kubeconfig
   - sed -i -e 's|TPF_AWS_ACCESS_KEY_ID|'"${TPF_AWS_ACCESS_KEY_ID}"'|g' udacity-c3-deployment/k8s/kubeconfig
   - sed -i -e 's|TPF_AWS_SECRET_ACCESS_KEY|'"${TPF_AWS_SECRET_ACCESS_KEY}"'|g' udacity-c3-deployment/k8s/kubeconfig
-  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/env-secret
-  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/aws-secret
-  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/env-configmap
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/env-secret.yaml
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/aws-secret.yaml
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/env-configmap.yaml
   - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/backend-feed-deployment.yaml
   - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/backend-feed-service.yaml
   - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/backend-user-deployment.yaml
   - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/backend-user-service.yaml
-  - kubectl --configfile udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/frontend-deployment.yaml
-  - kubectl --configfile udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/frontend-service.yaml
-  - kubectl --configfile udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/reverseproxy-deployment.yaml
-  - kubectl --configfile udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/reverseproxy-service.yaml
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/frontend-deployment.yaml
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/frontend-service.yaml
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/reverseproxy-deployment.yaml
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/reverseproxy-service.yaml
 
 
 

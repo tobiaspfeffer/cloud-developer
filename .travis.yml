@@ -17,7 +17,7 @@ install:
 
 script:
   - docker-compose -f udacity-c3-deployment/docker/docker-compose-build.yaml build --parallel
-  - docker-compose -f docker-compose-build.yaml push
+  - docker-compose -f udacity-c3-deployment/docker/docker-compose-build.yaml push
 
 deploy:
   - sed -i -e 's|KUBE_CA_CERT|'"${KUBE_CA_CERT}"'|g' udacity-c3-deployment/k8s/kubeconfig

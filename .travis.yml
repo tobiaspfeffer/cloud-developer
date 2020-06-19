@@ -58,8 +58,12 @@ after_script:
   - sed -i -e 's|API_HOST|'"${API_HOST}"'|g' udacity-c3-frontend/environments/environment.prod.ts
   - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/frontend-deployment.yaml
   - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/frontend-service.yaml
-# try to perform rolling update - rolling update is only performed on version change
-  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig set image deployment/frontend frontend=tobiaspfeffer/udacity-frontend:0.0.2
+# perform rolling update - rolling update is only performed on version change
+  - export TAG=$(cat version)
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig set image deployment/frontend frontend=tobiaspfeffer/udacity-frontend:${TAG}
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig set image deployment/backend-user frontend=tobiaspfeffer/udacity-backend-user:${TAG}
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig set image deployment/backend-feed frontend=tobiaspfeffer/udacity-backend-feed:${TAG}
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig set image deployment/reverseproxy frontend=tobiaspfeffer/udacity-reverseproxy:${TAG}
 
 
 

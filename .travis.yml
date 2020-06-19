@@ -53,6 +53,8 @@ after_script:
   - export aws_elb_url=$(kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig describe svc reverseproxy | grep "LoadBalancer Ingress:")
   - export API_HOST=$(echo ${aws_elb_url} | cut -d " " -f 3)
   - echo $API_HOST
+  - sed -i -e 's|API_HOST|'"${API_HOST}"'|g' udacity-c3-frontend/environments/environment.ts
+  - sed -i -e 's|API_HOST|'"${API_HOST}"'|g' udacity-c3-frontend/environments/environment.prod.ts
   - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/frontend-deployment.yaml
   - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/frontend-service.yaml
 

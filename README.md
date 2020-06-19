@@ -11,8 +11,12 @@ The project is split into three parts:
 ## Deployment Setup
 
 1. The containerized application is deployed to AWS EKS 
-2. the following environment variables have to be set in travis CI
-    
+2. The following environment variables have to be set in travis CI's environment variables
+    2.1. TPF_POSTGRESS_USERNAME - base64 encoded postgress_username of the AWS RDS
+    2.2. TPF_POSTGRESS_PASSWORD - base64 encoded postgress_password of the AWS RDS
+    2.3. TPF_AWS_CREDENTIALS - base64 encoded aws credentials for the S3 bucket uses in the backend
+    2.3 
+
 
 ## Getting local Setup
 

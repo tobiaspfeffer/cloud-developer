@@ -47,10 +47,12 @@ after_script:
   - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/backend-feed-service.yaml
   - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/backend-user-deployment.yaml
   - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/backend-user-service.yaml
-  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/frontend-deployment.yaml
-  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/frontend-service.yaml
   - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/reverseproxy-deployment.yaml
   - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/reverseproxy-service.yaml
+  - export aws_elb_url=$(kubectl describe svc reverseproxy | grep "LoadBalancer Ingress:")
+  - export API_HOST=$(echo ${aws_elb_url} | cut -d " " -f 3)
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/frontend-deployment.yaml
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig apply -f udacity-c3-deployment/k8s/frontend-service.yaml
 
 
 

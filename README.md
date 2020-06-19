@@ -22,8 +22,13 @@ The project is split into three parts:
     2.8.  DOCKER_PASSWORD - password to docker hub
 3. Release version of the containerized microservices can be set by increasing major.minor.patch number in version file located in the root of the directory
 4. The build job runs on a sucessfull merge on master_dev
-5. The travis CI pipeline is configured to collectively release new images of the microservices to docker hub taging each image with the version number and additionally with latest tag
-6. 
+5. The travis CI pipeline is configured to collectively release new images of the microservices to docker hub taging each newly released image with the version number and additionally with latest tag
+6. The containerized application running on the images with the latest tag is then deployed to EKS by first configuring kubectl to access the cluster
+7. secrets and env variables are injected to the kubernetes cluster
+8. The frontend is exposed via load balancer to public access
+9. The backend uses a nginx proxy which is exposed via load balancer to the frontend and to the public
+10. The microservices can be scaled independently via deployment replica sets
+11. A/B deployment of the microservice xxx is possible by locally changing the file udacity-c3-deployment/k8s/xx-deployment.yaml 
 
 
 

@@ -3,13 +3,18 @@
 Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.
 
 The project is split into three parts:
-1. [The Simple Frontend](/udacity-c3-frontend)
-A basic Ionic client web application which consumes the RestAPI Backend. 
+1. [The Simple Frontend](/udacity-c3-frontend) a basic Ionic client web application which consumes the RestAPI Backend. 
 2. [The RestAPI Feed Backend](/udacity-c3-restapi-feed), a Node-Express feed microservice.
 3. [The RestAPI User Backend](/udacity-c3-restapi-user), a Node-Express user microservice.
-3. [The Microservice Deployment](/udacity-c3-deployment), the containerized application is deployed on a kubernetes cluster.
+3. [The Microservice Deployment](/udacity-c3-deployment), a travis CI based CI/CD pipeline which build and deployes the containerized application on a AWS kubernetes cluster.
 
-## Getting Setup
+## Deployment Setup
+
+1. The containerized application is deployed to AWS EKS 
+2. the following environment variables have to be set in travis CI
+    
+
+## Getting local Setup
 
 > _tip_: this frontend is designed to work with the RestAPI backends). It is recommended you stand up the backend first, test using Postman, and then the frontend should integrate.
 

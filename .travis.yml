@@ -61,9 +61,9 @@ after_script:
 # perform rolling update - rolling update is only performed on version change
   - export TAG=$(cat version)
   - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig set image deployment/frontend frontend=tobiaspfeffer/udacity-frontend:${TAG}
-  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig set image deployment/backend-user frontend=tobiaspfeffer/udacity-backend-user:${TAG}
-  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig set image deployment/backend-feed frontend=tobiaspfeffer/udacity-backend-feed:${TAG}
-  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig set image deployment/reverseproxy frontend=tobiaspfeffer/udacity-reverseproxy:${TAG}
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig set image deployment/backend-user backend-user=tobiaspfeffer/udacity-backend-user:${TAG}
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig set image deployment/backend-feed backend-feed=tobiaspfeffer/udacity-backend-feed:${TAG}
+  - kubectl --kubeconfig udacity-c3-deployment/k8s/kubeconfig set image deployment/reverseproxy reverseproxy=tobiaspfeffer/udacity-reverseproxy:${TAG}
 
 
 

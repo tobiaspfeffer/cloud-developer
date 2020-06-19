@@ -15,7 +15,7 @@ spec:
         service: backend-feed
     spec:
       containers:
-      - image: tobiaspfeffer/udacity-restapi-feed
+      - image: tobiaspfeffer/udacity-restapi-feed:latest
         name: backend-feed
         imagePullPolicy: Always  
         resources:

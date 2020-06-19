@@ -16,7 +16,7 @@ spec:
         api: external        
     spec:
       containers:
-      - image: tobiaspfeffer/udacity-frontend:local
+      - image: tobiaspfeffer/udacity-frontend:latest
         name: frontend
         imagePullPolicy: Always          
         ports:
@@ -27,6 +27,9 @@ spec:
             cpu: "250m"
           limits:
             memory: "1024Mi"
-            cpu: "500m"                
+            cpu: "500m" 
+        env:
+        - name: API_HOST
+          value: ${API_HOST}          
       restartPolicy: Always
 

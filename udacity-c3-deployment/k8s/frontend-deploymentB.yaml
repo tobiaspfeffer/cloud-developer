@@ -2,31 +2,34 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: reverseproxy
-  name: reverseproxy
+    service: frontend
+  name: frontend-b
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: reverseproxy
+      service: frontend
   template:
     metadata:
       labels:
-        service: reverseproxy
+        service: frontend
+        api: external        
     spec:
       containers:
-      - image: tobiaspfeffer/reverseproxy:latest
-        name: reverseproxy
+      - image: tobiaspfeffer/udacity-frontend:0.0.1
+        name: frontend
         imagePullPolicy: Always          
+        ports:
+        - containerPort: 80
         resources:
           requests:
             memory: "64Mi"
             cpu: "250m"
           limits:
             memory: "1024Mi"
-            cpu: "500m"       
-        ports:
-        - containerPort: 8080
+            cpu: "500m" 
+        env:
+        - name: API_HOST
+          value: ${API_HOST}          
       restartPolicy: Always
-
 

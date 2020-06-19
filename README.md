@@ -15,7 +15,16 @@ The project is split into three parts:
     2.1. TPF_POSTGRESS_USERNAME - base64 encoded postgress_username of the AWS RDS
     2.2. TPF_POSTGRESS_PASSWORD - base64 encoded postgress_password of the AWS RDS
     2.3. TPF_AWS_CREDENTIALS - base64 encoded aws credentials for the S3 bucket uses in the backend
-    2.3 
+    2.4.  TPF_AWS_ACCESS_KEY_ID - plain text credentials for IAM role created AWS EKS
+    2.5.  TPF_AWS_SECRET_ACCESS_KEY - plain text credentials for IAM role created AWS EKS
+    2.6.  KUBE_CA_CERT - certificate for accessing EKS
+    2.7.  DOCKER_USERNAME - username to docker hub
+    2.8.  DOCKER_PASSWORD - password to docker hub
+3. Release version of the containerized microservices can be set by increasing major.minor.patch number in version file located in the root of the directory
+4. The build job runs on a sucessfull merge on master_dev
+5. The travis CI pipeline is configured to collectively release new images of the microservices to docker hub taging each image with the version number and additionally with latest tag
+6. 
+
 
 
 ## Getting local Setup

@@ -27,8 +27,8 @@ The project is split into three parts:
 7. secrets and env variables are injected to the kubernetes cluster
 8. The frontend is exposed via load balancer to public access
 9. The backend uses a nginx proxy which is exposed via load balancer to the frontend and to the public
-10. The microservices can be scaled independently via deployment replica sets
-11. A/B deployment of the microservice xxx is possible by locally changing the file udacity-c3-deployment/k8s/xx-deployment.yaml 
+10. New versions are deployed using a rolling update in the travis CI pipeline
+11. A/B deployment of the microservice xxx is possible by locally changing the name and image version in the file udacity-c3-deployment/k8s/xxx-deployment.yaml but leaving the selector name constant. A example for the frontend is provided in udacity-c3-deployment/k8s/frontendB-deployment.yaml
 
 
 
